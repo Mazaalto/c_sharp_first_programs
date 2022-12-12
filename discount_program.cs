@@ -68,6 +68,20 @@ namespace SoloLearn
 
             //fix the output
             Console.WriteLine(card1.AccountNum);
+
+            Unit unit1 = new Unit();
+            Unit musketeer = new Musketeer();
+            Unit magician = new Magician();
+
+            unit1.Attack();
+            musketeer.Attack();
+            magician.Attack();
+
+            string color = Console.ReadLine();
+            string equipment = Console.ReadLine();
+            Car car = new Car(color, equipment);
+            car.GetColor();
+            car.GetEquipment();
         }
         static int Discount(int total)
         {
@@ -258,7 +272,263 @@ namespace SoloLearn
                 }
             }
         }
+        class MusicGenres
+        {
+        private string[] genres = new string[5];
+        
+        //declare an indexer
+        public string this[int index] {
+            get {
+                return genres[index];
+                }
+            set {
 
+                genres[index] = value;
+                }
+        }
+    }
+    // Teamwork Makes the Dream Work
+    //Overload the + operator for Score class to calculate the team score for a game.
+    class Score
+    {
+        public int round1Score { get; set; }
+        public int round2Score { get; set; }
+        public Score(int r1, int r2)
+        {
+            round1Score = r1;
+            round2Score = r2;
+        }
+        
+        //your code goes here
+        public static Score operator+(Score a, Score b) {
+                int round1 = a.round1Score + b.round1Score;
+                int round2 = a.round2Score + b.round2Score;
+                Score res = new Score(round1, round2);
+                return res;
+            }
+    }
+    /*Dance
+
+
+    In a ballroom dancing competition, each dancer from a pair is evaluated separately, and then their points are summed up to get the total pair score.
+    The program you are given takes the names and the points of each dancer as input and creates a DancerPoints objects for each dancer, using the taken name and score values as parameters for constructors.
+    Complete the given class, using overload + operator to return an new object where the names of dancers are in one string (see sample output) and the score is equal to the sum of their points.
+    The declaration of that object and the output of its points are already written in Main()
+    */
+    class DancerPoints
+    {
+        public string name;
+        public int points;
+        public DancerPoints(string name, int points)
+        {
+            this.name = name;
+            this.points = points;
+        }
+
+        //overload the + operator
+        public static DancerPoints operator+ (DancerPoints a, DancerPoints b)
+        {
+            string names = a.name + " & "+ b.name;
+            int pointstotal = a.points + b.points;
+            DancerPoints uusi = new DancerPoints(names, pointstotal);
+            return uusi;
+           
+           
+        }
+        
+        
+
+    }
+    class Vehicle
+    {
+        public string Brand { get; set; }
+
+        public void ShowBrand()
+        {
+            Console.WriteLine("Brand: " + Brand);
+        }
+    }
+    
+    //complete the Car class
+    class Car : Vehicle
+    {
+        public string Model { get; set; }
+        public void ShowModel(){
+            Console.WriteLine("Model: " + Model);
+        }
+        
+    }
+    /* Polymorphism can be useful in many cases. For example, we could create a game where we would have different Player types with each Player having a separate behavior for the Attack method.
+    In this case, Attack would be a virtual method of the base class Player and each derived class would override it.
+    In a turn-based strategy game, each unit can attack.
+    The standard unit attacks with a sword. But there are two more types of units - musketeers and magicians, who attack in their own way.
+    The program you are given declares Unit class which has a method Attack(). It outputs "Using sword!".
+    Derive Musketeer and Magician classes from the Unit class and override its Attack() method to output the corresponding messages while attacking:
+    Musketeer => "Using musket!"
+    Magician =>"Using magic!"
+    */
+     class Unit
+    {
+        public virtual void Attack()
+        {
+            Console.WriteLine("Using sword!");
+        }
+    }
+    
+    /*derive the class from Unit class
+    and override Attack() method*/
+    class Musketeer : Unit
+    {
+        public override void Attack()
+        {
+            Console.WriteLine("Using musket!");
+
+        }
+        
+    }
+    /*derive the class from Unit class
+    and override Attack() method*/
+    class Magician : Unit
+    {
+        public override void Attack()
+        {
+            Console.WriteLine("Using magic!");
+
+        }
+        
+    }
+    public interface IColor
+    {
+        void GetColor();
+    }
+
+    public interface IEquipment
+    {
+        void GetEquipment();
+    }
+    
+    //implement IColor & IEquipment interfaces
+    public class Car : IColor, IEquipment
+    {
+        public string color;
+        public string equipment;
+
+        public Car(string color, string equipment)
+        {
+            this.color = color;
+            this.equipment = equipment;
+        }
+        
+        public void GetColor()
+        {
+            Console.WriteLine("Color: "+color);
+            
+        }
+        public void GetEquipment()
+        {
+            Console.WriteLine("Equipment: "+equipment);
+            
+        }
+    }
+    public interface IDraw
+    {
+        void StartDraw();
+    }
+
+    class Draw : IDraw
+    {
+        public virtual void StartDraw()
+        {
+            Console.WriteLine("Using pencil");
+        }
+    }
+
+    //inherit this class from the class Draw
+    class Brush : Draw
+    {
+        //implement the StartDraw() method
+        public override void StartDraw()
+        {
+            Console.WriteLine("Using brush");
+        }
+
+    }
+
+    //inherit this class from the class Draw
+    class Spray : Draw
+    {
+        //implement the StartDraw() method
+        public override void StartDraw()
+        {
+            Console.WriteLine("Using spray");
+        }
+
+
+    }
+    struct Cuboid
+    {
+        public int length;
+        public int width;
+        public int height;
+
+        //create a constructor
+        public Cuboid(int length, int width, int height)
+        {
+            this.length = length;
+            this.width = width;
+            this.height = height;
+
+        }
+        
+        
+        //complete this method
+        public int Volume()
+        {
+            return length*width*height;
+            
+        }
+        //complete this method
+        public int Perimeter()
+        {
+            return 4*(length+width+height);
+            
+        }
+    }
+    /* Enums
+
+
+    A racing video game has 3 difficulty levels: Easy, Medium, and Hard.
+    Each difficulty level is assigned maximum time to complete the track: the higher the difficulty, the lower the time.
+    The program you are given defines Player class and Difficulty enum, and creates 3 Player objects with different difficulties as parameter for the constructor.
+    Complete the Player constructor, which takes the enum as a parameter to check the time for each difficulty option and outputs the corresponding message:
+    Easy => "You have 3 minutes 45 seconds"
+    Medium = > "You have 3 minutes 20 seconds"
+    Hard => "You have 3 minutes" 
+    */
+    class Player
+    {
+        public Player(Difficulty x)
+        {
+            //your code goes here
+            switch (x) {
+                case Difficulty.Easy:
+                    Console.WriteLine("You have 3 minutes 45 seconds");
+                    break;
+                case Difficulty.Medium:
+                    Console.WriteLine("You have 3 minutes 20 seconds");
+                    break;
+                case Difficulty.Hard:
+                    Console.WriteLine("You have 3 minutes");
+                    break;
+            }
+        }
+    }
+    enum Difficulty
+    {
+        Easy,
+        Medium,
+        Hard
+    };
 
 
 
